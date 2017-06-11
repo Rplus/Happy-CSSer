@@ -1,3 +1,4 @@
+// source: https://unindented.org/articles/trigonometry-in-sass/
 @function pow($number, $exp) {
   $value: 1;
   @if $exp > 0 {
