@@ -6,15 +6,15 @@ head
   link(rel="stylesheet", href="style.css")
 
 body.app
-  title [CSS] Switcher Vll Plus
-  h1.intro [CSS] Switcher Vll Plus
+  title [CSS] 3D Switcher Vll Plus
+  h1.intro [CSS] 3D Switcher Vll Plus
+    small click to toggle
 
   .box
-    .Switcher
-      input#io.Switcher__checkbox.sr-only(type="checkbox" checked)
-      label.Switcher__trigger(for="io" data-value="SALE") SALE
-      label.Switcher__trigger(for="io" data-value="RENT") RENT
-      .Switcher__indicator
+    input#io.Switcher__checkbox.sr-only(type="checkbox" checked)
+    label.Switcher(for="io")
+      .Switcher__trigger(data-value="SALE") SALE
+      .Switcher__trigger(data-value="RENT") RENT
 
   blockquote.info
     | inspired from 
