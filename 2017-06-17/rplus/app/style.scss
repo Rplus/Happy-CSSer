@@ -1,0 +1,134 @@
+$c-white: #fff;
+$c-black: #000;
+$c-theme: #00a8ff;
+// $c-theme: hsl(200, 100%, 50%);
+
+.Switcher {
+  position: relative;
+  display: flex;
+  border-radius: 5em;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px;
+}
+
+.Switcher__trigger {
+  position: relative;
+  z-index: 1;
+  padding: 1em 5em;
+
+  &::before {
+    --i: var(--x);
+    content: attr(data-value);
+    position: absolute;
+    color: $c-theme;
+    transition: opacity .3s;
+    opacity: calc((var(--i) + 1) / 2);
+    transition-delay: calc(.3s * (var(--i) - 1) / -2);
+
+    .Switcher__checkbox:checked ~ & {
+      --i: calc(var(--x) * -1);
+    }
+  }
+
+  &:first-of-type:before {
+    --x: 1;
+  }
+
+  &:last-of-type:before {
+    --x: -1;
+  }
+
+}
+
+.Switcher__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background-color: $c-white;
+  transform: translateX(-50%);
+  transition: transform .5s ease-in-out;
+
+  .Switcher__checkbox:checked ~ & {
+    transform: translateX(50%);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+/// reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  line-height: 1.4;
+  color: $c-white;
+  background-color: $c-theme;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-top: .5em;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  text-align: center;
+  font-family: serif;
+  border-bottom: 1px dashed rgba($c-white, .5);
+
+  small {
+    display: block;
+    text-align: right;
+    opacity: .5;
+    font-style: italic;
+    text-transform: none;
+    border-top: 1px dashed rgba($c-white, .75);
+  }
+}
+
+.info {
+  margin: 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+      color: inherit;
+  }
+}
