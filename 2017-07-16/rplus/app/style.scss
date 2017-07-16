@@ -7,9 +7,6 @@ $t-dur: .3s;
 $debug: true;
 $debug: false;
 
-// Redacted-Font
-@import url("./Redacted-Font-old-sources/fonts/web/stylesheet.css") print;
-
 @mixin fill {
   position: absolute;
   top: 0;
