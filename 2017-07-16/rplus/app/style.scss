@@ -114,6 +114,12 @@ $debug: false;
 
 .article__title {
   margin-top: 0;
+  margin-bottom: .5rem;
+  font-size: 1.5em;
+}
+
+.article__desc {
+  color: lighten($c-black, 65%);
 }
 
 .workspace {
@@ -152,7 +158,15 @@ body {
   text-transform: capitalize;
   text-align: center;
   font-family: serif;
-  border-bottom: 1px dashed rgba($c-black, .5);
+
+  small {
+    display: block;
+    text-align: right;
+    opacity: .3;
+    font-style: italic;
+    text-transform: none;
+    border-top: 1px dashed rgba(#000, .75);
+  }
 }
 
 .info {
