@@ -1,7 +1,8 @@
 $c-white: #fff;
 $c-black: #000;
 
-$grid-gap: 1em;
+$grid-gap: 2%;
+$scale-ratio: ((100% - $grid-gap) / 2 - $grid-gap) / (100% - $grid-gap);
 $t-dur: .3s;
 
 $debug: true;
@@ -16,14 +17,17 @@ $debug: false;
 }
 
 .wall {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: $grid-gap;
   overflow: hidden;
 }
 
 .tileGroup {
   position: relative;
+  float: left;
+  width: (100% - $grid-gap) / 2;
+  margin-bottom: $grid-gap;
+
+  &:nth-of-type(odd) { margin-right: $grid-gap / 2; }
+  &:nth-of-type(even) { margin-left: $grid-gap / 2; }
 
   &::before {
     content: '';
@@ -44,7 +48,7 @@ $debug: false;
 .tile {
   @include fill;
   z-index: 0;
-  transform: scale(.5 - 1 / 30);
+  transform: scale($scale-ratio);
   transition-property: transform, z-index;
   transition-duration: $t-dur;
   transition-delay: $t-dur;
@@ -83,9 +87,8 @@ $debug: false;
   top: 0;
   left: 100%;
   bottom: 0;
-  width: calc(100% + #{$grid-gap});
-  // width: 100%;
-  padding: $grid-gap;
+  width: 100% * (100% + $grid-gap) / (100% - $grid-gap);
+  padding: 100% * 2 * $grid-gap / (100% - $grid-gap);
   overflow: auto;
   background-color: #eee;
   font: normal 1em/1.6 "Redacted Script Bold";
@@ -114,7 +117,8 @@ $debug: false;
 }
 
 .workspace {
-  max-width: 31rem;
+  width: 40rem;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -130,6 +134,9 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
   line-height: 1.4;
   background-color: $c-white;
