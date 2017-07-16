@@ -95,7 +95,7 @@ $debug: false;
   color: lighten($c-black, 50%);
   opacity: 0;
   transform: translateX(-100%);
-  transition: transform $t-dur, opacity $t-dur;
+  transition: transform $t-dur $t-dur/3, opacity $t-dur;
   transition-delay: 0s;
 
   .tileGroup:nth-of-type(even) & {
