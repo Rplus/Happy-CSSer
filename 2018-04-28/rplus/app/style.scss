@@ -68,7 +68,7 @@ $color-bg: $color-white;
   z-index: var(--active);
   transform: translateY(calc(2em * (1 - var(--active))));
   transition: opacity .3s, transform .3s;
-  font-size: 1rem;
+  font-size: 5vmin;
 
   &::before {
     content: attr(data-current-size);
@@ -76,7 +76,6 @@ $color-bg: $color-white;
     top: 115%;
     width: 100%;
     text-align: center;
-    font-size: 2em;
     font-family: sans-serif;
     font-weight: bolder;
     color: $color-light;
