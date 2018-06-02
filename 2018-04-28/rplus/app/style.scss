@@ -66,9 +66,9 @@ $color-bg: $color-white;
   cursor: pointer;
   opacity: var(--active);
   z-index: var(--active);
-  transform: translateY(calc(2em * (1 - var(--active))));
-  transition: opacity .3s, transform .3s;
-  font-size: 5vmin;
+  transition: opacity .2s;
+  font-size: .2em;
+  border-radius: 50%;
 
   &::before {
     content: attr(data-current-size);
@@ -79,6 +79,8 @@ $color-bg: $color-white;
     font-family: sans-serif;
     font-weight: bolder;
     color: $color-light;
+    transform: translateY(calc(1em * (1 - var(--active))));
+    transition: transform .3s;
   }
 }
 
@@ -90,7 +92,7 @@ $color-bg: $color-white;
 
 .icon-box {
   position: relative;
-  font-size: 20vmin;
+  font-size: 150px;
 }
 
 .box {
@@ -99,6 +101,7 @@ $color-bg: $color-white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 3em;
 }
 
 /// reset
