@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Music Player
+    link(rel="stylesheet", href="style.css")
+
+body
+  h1.intro Music Player
+    small click to toggle aperture size
+
+  .box
+    .player
+      .meta
+        //- .media-info
+        .title Flume
+        .subtitle Say it!
+        .Bar
+          .progress
+          .cursor(data-time="00:00" style="--curcsor-percent: 80;")
+      .disk
+        .o
+      .btn.btn-prev
+      .btn
+        .btn-play
+        .btn-pause
+      .btn.btn-next
+
+  blockquote.info
+    | inspired from 
+    a(href="https://dribbble.com/shots/3787986-41-Camera-Aperture") 41 - Camera Aperture
+
+  script.
+    console.log(123)

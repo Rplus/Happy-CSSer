@@ -1,0 +1,389 @@
+$color-bgc: #ffeef4;
+$color-btn: #d8dde1;
+$color-btn-pri: #c2c6cd;
+$color-bar-pri: #f579a3;
+$color-info: #fff7fc;
+$color-white: #fff;
+
+@function x($n: 1) {
+  @return $n * 20px;
+}
+
+$disk-size: x(6.5);
+$disk-init-size: .9;
+$disk-hole-size: x(.8);
+$btn-size: x(4);
+
+.player {
+  position: relative;
+  width: x(21.5);
+  height: x(5);
+  border-radius: x(.75);
+  margin-left: -16px;
+  display: grid;
+  grid-template-columns: ($disk-size * 1.15) repeat(3, 1fr);
+  grid-gap: x(.3);
+  align-items: center;
+  padding-left: x(.5);
+  padding-right: x(.5);
+  background-color: $color-white;
+  // box-shadow: inset 0 0 0 1px;
+  font-family: sans-serif;
+}
+
+.disk {
+  --disk-activity: 0;
+
+  position: relative;
+  height: 100%;
+
+  &:hover {
+    .o::after {
+      animation-play-state: running;
+    }
+  }
+
+  &:active {
+    --disk-activity: 1;
+  }
+
+  .o {
+    position: absolute;
+    top: $disk-size / -2.5;
+    right: 0;
+    border-radius: 50%;
+    width: $disk-size;
+    height: $disk-size;
+    transform: scale(calc(#{$disk-init-size} + var(--disk-activity) * #{1 - $disk-init-size}));
+    transform-origin: 50% 100%;
+    transition: transform .3s;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+    }
+
+    // shadow
+    &::before {
+      z-index: 1;
+      border: ($disk-size / 2 - $disk-hole-size) solid transparent;
+      color: rgba(#003 , .5);
+      box-shadow:
+      inset 0 -10px 40px -15px,
+      0 20px 40px -20px;
+      opacity: var(--disk-activity);
+      transition: opacity .3s;
+    }
+
+    // image
+    &::after {
+      animation: disk-rotate 10s linear infinite;
+      animation-play-state: paused;
+      background-image:
+        radial-gradient(#fff $disk-hole-size, transparent 0),
+        linear-gradient(red, blue);
+
+      @keyframes disk-rotate {
+        to { transform: rotate(360deg); }
+      }
+    }
+  }
+}
+
+.btn {
+  position: relative;
+  display: inline-flex;
+  width: x(4);
+  height: x(4);
+  border-radius: x(.5);
+  // box-shadow: inset 0 0 0 1px;
+  color: $color-btn-pri;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-btn;
+  }
+}
+
+.btn-prev,
+.btn-next {
+  --btn-acitivity: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - .7em);
+    left: calc(50% - .5em);
+    border-top: .7em solid transparent;
+    border-bottom: .7em solid transparent;
+    border-right: 1em solid;
+    border-radius: 2px;
+    margin-left: .3em;
+    transition: transform .3s calc(var(--btn-acitivity) * .15s);
+    transform: translateX(calc(var(--btn-acitivity) * -50%));
+  }
+
+  &::after {
+    margin-left: -.3em;
+    transition-delay: 0s;
+  }
+
+  &:active {
+    --btn-acitivity: 1;
+  }
+}
+
+.btn-next {
+  transform: scale(-1);
+}
+
+.btn-pause {
+  --btn-acitivity: 0;
+  --dx: 1em;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--btn-acitivity);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: .7em;
+    height: 2em;
+    border-radius: 2px;
+    background-color: currentColor;
+    opacity: var(--btn-acitivity);
+    transform: translateX(calc(var(--dx) * var(--dir, 1)));
+    transition:
+      transform .3s calc(.3s * var(--btn-acitivity)),
+      opacity .3s calc(.3s * var(--btn-acitivity));
+  }
+
+  &::after {
+    --dir: -1;
+  }
+
+  .btn:active & {
+    --btn-acitivity: 1;
+    --dx: .6em;
+  }
+}
+
+.btn-play {
+  --btn-acitivity: 1;
+  z-index: var(--btn-acitivity);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: min-content;
+    height: min-content;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-left: 1.5em solid;
+    border-radius: 4px;
+    opacity: var(--btn-acitivity);
+    transform: scale(calc(var(--btn-acitivity) * .5 + .5));
+    transition:
+      opacity .3s calc(.3s * var(--btn-acitivity)),
+      transform .3s calc(.3s * var(--btn-acitivity));
+  }
+
+  .btn:active & {
+    --btn-acitivity: 0;
+  }
+}
+
+.meta {
+  --meta-activity: 0;
+  --meta-activity: 1;
+
+  position: absolute;
+  top: 0;
+  left: x(1);
+  right: x(1);
+  height: x(4);
+  z-index: -1;
+  border-radius: x(1) x(1) x(0) x(0);
+  transform: translateY(calc(var(--meta-activity) * -100%));
+  display: grid;
+  padding: x(.5) x(.75);
+  grid-template-columns: $disk-size * 1.15 auto;
+  grid-template-rows: auto auto 1fr;
+  background-color: $color-info;
+  // box-shadow: inset 0 0 0 1px;
+
+  > * {
+    grid-column-start: 2;
+  }
+
+  .title {
+    font-weight: bolder;
+  }
+
+  .subtitle {
+    font-size: smaller;
+  }
+
+}
+
+.Bar {
+  position: relative;
+  padding-top: 10px;
+  cursor: pointer;
+
+  .progress {
+    --progress: 0;
+
+    --progress: 20;
+
+    position: relative;
+    width: 100%;
+    height: 4px;
+    align-self: center;
+    background-color: $color-btn;
+    overflow: hidden;
+    border-radius: 1em;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 100%;
+      width: 100%;
+      background-color: $color-bar-pri;
+      border-radius: inherit;
+      transform: translateX(calc(var(--progress) * 1%));
+      transition: transform .3s;
+    }
+  }
+
+  .cursor {
+    position: absolute;
+    left: calc(var(--curcsor-percent) * 1%);
+    bottom: calc(100%);
+    transform: translateX(-50%);
+    padding: 0 5px;
+    transition: left .3s;
+    background-color: $color-bar-pri;
+    color: #fff;
+    border-radius: 3px;
+    display: none;
+
+    &::before {
+      content: attr(data-time);
+    }
+  }
+
+  &:hover {
+    .cursor {
+      display: block;
+    }
+  }
+}
+
+.box {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3em;
+}
+
+/// reset
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  line-height: 1.4;
+  background-color: $color-bgc;
+  background-image: url('./music-player/ani-331.jpg');
+  background-repeat: no-repeat;
+  background-position: 50% 35vh;
+  background-position: 50% 50vh;
+  // background-position: 50% 0vh;
+}
+
+.intro {
+  width: 90%;
+  max-width: 50rem;
+  padding-top: .5em;
+  padding-bottom: 1rem;
+  margin: 0 auto 1em;
+  font-size: calc(1rem + 2vmin);
+  text-transform: capitalize;
+  text-align: center;
+  font-family: serif;
+
+  small {
+    display: block;
+    text-align: right;
+    opacity: .3;
+    font-style: italic;
+    text-transform: none;
+    margin-top: .5rem;
+    border-top: 1px dashed;
+  }
+}
+
+.info {
+  margin: auto 0 0;
+  padding: 1em;
+  font-size: .9em;
+  font-style: italic;
+  font-family: serif;
+  text-align: right;
+  opacity: .75;
+
+  a {
+    color: inherit;
+  }
+}
+
+.sr-only {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
